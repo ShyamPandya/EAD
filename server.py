@@ -1,14 +1,6 @@
 import hashlib
-import urllib
-import urllib2
-
-import requests
 from flask import Flask, request, render_template, jsonify
-from flask import json
-from flask import redirect
-from flask import url_for
 from flaskext.mysql import MySQL
-from requests.packages import urllib3
 
 app = Flask(__name__)
 app.secret_key = 'super secret key'
@@ -39,7 +31,7 @@ class switch(object):
 
 def validate(requestCode,clientRequest):
     for case in switch(requestCode):
-        if case('LOGIN'):
+        if case('LOGIN'):                        #These are the possible request codes that can be sent by the client and according to the code response will be given from the sql server
             username = ''
             password = ''
             temp = clientRequest['username'],
@@ -266,7 +258,7 @@ def validate(requestCode,clientRequest):
             return "Waah"
 
 
-@app.route('/todo/tasks/', methods=['POST'])
+@app.route('/todo/tasks/', methods=['POST'])            #Function that will call validate() if a post is requested at this url
 def create_tasks():
     error = ''
     try:
